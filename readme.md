@@ -12,9 +12,63 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+## Djoser is required
+
+`pipend install djoser`
+
+## changes in settings.py file 
+
+```python 
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+    'rest_framework.authtoken',
+    'LittleLemonDRF',
+    'djoser'
+]
+
+```
+
+and 
+
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
+```
+
+## Create super admin user
+
+```
+python manage.py createsuperuser
+```
+
+## Create other users
+
+Now login to Django admin panel at `http://127.0.0.1:8000/admin/` as admin and create two users and generate their tokens
+
+![Tokens](https://res.cloudinary.com/dpebhamdp/image/upload/v1667839615/Labs/Lab5/django-admin-tokens_jyly6x.png)
+
+## Ratings Endpoint 
+You can access `http://127.0.0.1:8000/api/ratings` to display all ratings
+
+![Ratings](https://res.cloudinary.com/dpebhamdp/image/upload/v1667839615/Labs/Lab5/display-ratings_ayqeu8.png)
+
+## Rate an item
+Send a POST request to `http://127.0.0.1:8000/api/ratings` with `menuitem_id` and `rating` (must be 0 to 5) and add a user token 
+
+![Form Data](https://res.cloudinary.com/dpebhamdp/image/upload/v1667839615/Labs/Lab5/add-rating-as-adrian_rxbmzz.png)
+
+![User Token](https://res.cloudinary.com/dpebhamdp/image/upload/v1667839615/Labs/Lab5/add-rating-adrian-user-token_uuduvx.png)
+
+
+
 ## Previews & Information
 
-Then access `http://127.0.0.1:8000/api/menu-items` or `http://127.0.0.1:8000/api/categories` - full support for **GET** and **POST** for *menu items* and full support for **GET**, and **POST** for *categories*. 
+Then access `http://127.0.0.1:8000/api/ratings` - full support for **GET** and **POST** for *menu items* and full support for **GET**, and **POST** for *categories*. 
 
 ![Preview Lab 4](https://res.cloudinary.com/dpebhamdp/image/upload/v1667830608/Labs/Lab%204/categories_fkzqmm.png)
 
